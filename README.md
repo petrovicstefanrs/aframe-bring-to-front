@@ -3,15 +3,19 @@
 [![Version](http://img.shields.io/npm/v/aframe-bring-to-front-component.svg?style=flat-square)](https://npmjs.org/package/aframe-bring-to-front-component)
 [![License](http://img.shields.io/npm/l/aframe-bring-to-front-component.svg?style=flat-square)](https://npmjs.org/package/aframe-bring-to-front-component)
 
-A A-Frame Bring To Front Component component for A-Frame.
+A-Frame Bring To Front Component component For [A-Frame](https://aframe.io).
+This component serves as a wrapper around any other element and listens to an event to know when to put the wrapped element in front of the camera.
 
-For [A-Frame](https://aframe.io).
+IMPORTANT: For this component to work you must have a camera element explicitly declared somwhere inside your scene element.
 
 ### API
 
-| Property | Description | Default Value |
-| -------- | ----------- | ------------- |
-|          |             |               |
+| Property       | Description                                                                         | Default Value |
+| -------------- | ----------------------------------------------------------------------------------- | ------------- |
+| trigger        | Event to put element to front                                                       | keydown       |
+| triggerElement | Element to which the trigger event listener will be applied.                        | a-scene       |
+| distance       | Distance of the element from the camera on the z-axis. In meters.                   | -1            |
+| keyCode        | If event is keydown or keyup event will be fired if this key is pressed Default (H) | 72            |
 
 ### Installation
 
@@ -27,8 +31,13 @@ Install and use by directly including the [browser files](dist):
 </head>
 
 <body>
+  <a-entity position="0 1.6 0">
+      <a-entity camera></a-entity>
+  </a-entity>
   <a-scene>
-    <a-entity bring-to-front="foo: bar"></a-entity>
+    <a-entity bring-to-front>
+      <a-box position="0 2 -3"></a-box>
+    </a-entity>
   </a-scene>
 </body>
 ```

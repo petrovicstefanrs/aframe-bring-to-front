@@ -70,56 +70,106 @@
 /* 0 */
 /***/ (function(module, exports) {
 
-/* global AFRAME */
-
-if (typeof AFRAME === 'undefined') {
-  throw new Error('Component attempted to register before AFRAME was available.');
-}
+/* eslint-disable */
 
 /**
- * A-Frame Bring To Front Component component for A-Frame.
+ * Bring To Front Component
  */
+
+if (typeof AFRAME === 'undefined') {
+	throw new Error(
+		'Component attempted to register before AFRAME was available.'
+	);
+}
+
 AFRAME.registerComponent('bring-to-front', {
-  schema: {},
+	schema: {
+		trigger: {
+			default: 'keydown',
+		},
+		keyCode: {
+			default: 72,
+		},
+		triggerElement: {
+			default: 'a-scene',
+		},
+		distance: {
+			default: -1,
+		},
+	},
 
-  /**
-   * Set if component needs multiple instancing.
-   */
-  multiple: false,
+	play: function() {
+		if (AFRAME.utils.device.checkHeadsetConnected()) {
+			document
+				.querySelector(this.data.triggerElement)
+				.addEventListener('click', this.eventHandler.bind(this));
+		} else if (
+			!AFRAME.utils.device.checkHeadsetConnected() &&
+			AFRAME.utils.device.isMobile()
+		) {
+			document
+				.querySelector(this.data.triggerElement)
+				.addEventListener('click', this.eventHandler.bind(this));
+		} else {
+			if (this.data.trigger === 'click') {
+				document
+					.querySelector(this.data.triggerElement)
+					.addEventListener(
+						this.data.trigger,
+						this.eventHandler.bind(this)
+					);
+			} else {
+				document.addEventListener(
+					this.data.trigger,
+					this.eventHandler.bind(this)
+				);
+			}
+		}
 
-  /**
-   * Called once when component is attached. Generally for initial setup.
-   */
-  init: function () { },
+		this.cameraEl = document.querySelector('a-entity[camera]');
 
-  /**
-   * Called when component is attached and when component data changes.
-   * Generally modifies the entity based on the data.
-   */
-  update: function (oldData) { },
+		this.yaxis = new THREE.Vector3(0, 1, 0);
+		this.zaxis = new THREE.Vector3(0, 0, 1);
+		this.pivot = new THREE.Object3D();
 
-  /**
-   * Called when a component is removed (e.g., via removeAttribute).
-   * Generally undoes all modifications to the entity.
-   */
-  remove: function () { },
+		this.el.object3D.position.set(
+			0,
+			this.cameraEl.object3D.getWorldPosition().y,
+			this.data.distance
+		);
 
-  /**
-   * Called on each scene tick.
-   */
-  // tick: function (t) { },
+		this.el.sceneEl.object3D.add(this.pivot);
+		this.pivot.add(this.el.object3D);
+	},
 
-  /**
-   * Called when entity pauses.
-   * Use to stop or remove any dynamic or background behavior such as events.
-   */
-  pause: function () { },
+	eventHandler: function(evt) {
+		console.log(evt);
+		if (this.data.trigger === 'keydown' || this.data.trigger === 'keyup') {
+			var code = evt.keyCode ? evt.keyCode : evt.which;
+			if (code !== this.data.keyCode) {
+				return;
+			}
+		}
 
-  /**
-   * Called when entity resumes.
-   * Use to continue or add any dynamic or background behavior such as events.
-   */
-  play: function () { }
+		var direction = this.zaxis.clone();
+		direction.applyQuaternion(this.cameraEl.object3D.quaternion);
+		var ycomponent = this.yaxis
+			.clone()
+			.multiplyScalar(direction.dot(this.yaxis));
+		direction.sub(ycomponent);
+		direction.normalize();
+
+		this.pivot.quaternion.setFromUnitVectors(this.zaxis, direction);
+		this.pivot.position.copy(this.cameraEl.object3D.getWorldPosition());
+
+		if (this.el.getAttribute('visible') === false) {
+			this.el.setAttribute('visible', true);
+		}
+	},
+
+	update: function(oldData) {},
+
+	remove: function() {},
 });
 
 
