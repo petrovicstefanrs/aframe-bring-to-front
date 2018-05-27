@@ -1,6 +1,6 @@
 {
   "name": "aframe-bring-to-front-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A A-Frame Bring To Front Component component for A-Frame.",
   "main": "index.js",
   "unpkg": "dist/aframe-bring-to-front-component.min.js",

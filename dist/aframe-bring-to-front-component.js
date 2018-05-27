@@ -96,6 +96,9 @@ AFRAME.registerComponent('bring-to-front', {
 		distance: {
 			default: -1,
 		},
+		source: {
+			default: 'a-entity[camera]'
+		}
 	},
 
 	play: function() {
@@ -126,7 +129,7 @@ AFRAME.registerComponent('bring-to-front', {
 			}
 		}
 
-		this.cameraEl = document.querySelector('a-entity[camera]');
+		this.sourceEl = document.querySelector(this.data.source);
 
 		this.yaxis = new THREE.Vector3(0, 1, 0);
 		this.zaxis = new THREE.Vector3(0, 0, 1);
@@ -134,7 +137,7 @@ AFRAME.registerComponent('bring-to-front', {
 
 		this.el.object3D.position.set(
 			0,
-			this.cameraEl.object3D.getWorldPosition().y,
+			this.sourceEl.object3D.getWorldPosition().y,
 			this.data.distance
 		);
 
@@ -152,7 +155,7 @@ AFRAME.registerComponent('bring-to-front', {
 		}
 
 		var direction = this.zaxis.clone();
-		direction.applyQuaternion(this.cameraEl.object3D.quaternion);
+		direction.applyQuaternion(this.sourceEl.object3D.quaternion);
 		var ycomponent = this.yaxis
 			.clone()
 			.multiplyScalar(direction.dot(this.yaxis));
@@ -160,7 +163,7 @@ AFRAME.registerComponent('bring-to-front', {
 		direction.normalize();
 
 		this.pivot.quaternion.setFromUnitVectors(this.zaxis, direction);
-		this.pivot.position.copy(this.cameraEl.object3D.getWorldPosition());
+		this.pivot.position.copy(this.sourceEl.object3D.getWorldPosition());
 
 		if (this.el.getAttribute('visible') === false) {
 			this.el.setAttribute('visible', true);

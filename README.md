@@ -12,12 +12,13 @@ Insipred and based on [A-Frame Modal Component](https://github.com/IdeaSpaceVR/a
 
 ### API
 
-| Property       | Description                                                                         | Default Value |
-| -------------- | ----------------------------------------------------------------------------------- | ------------- |
-| trigger        | Event to put element to front                                                       | keydown       |
-| triggerElement | Element to which the trigger event listener will be applied.                        | a-scene       |
-| distance       | Distance of the element from the camera on the z-axis. In meters.                   | -1            |
-| keyCode        | If event is keydown or keyup event will be fired if this key is pressed Default (H) | 72            |
+| Property       | Description                                                                         | Default Value    |
+| -------------- | ----------------------------------------------------------------------------------- | ---------------- |
+| trigger        | Event to put element to front                                                       | keydown          |
+| triggerElement | Element to which the trigger event listener will be applied.                        | a-scene          |
+| distance       | Distance of the element from the camera on the z-axis. In meters.                   | -1               |
+| keyCode        | If event is keydown or keyup event will be fired if this key is pressed Default (H) | 72               |
+| source         | Source element to act as a pivot for the object we want to put in front             | a-entity[camera] |
 
 ### Installation
 
