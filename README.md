@@ -8,6 +8,8 @@ This component serves as a wrapper around any other element and listens to an ev
 
 IMPORTANT: For this component to work you must have a camera element explicitly declared somwhere inside your scene element.
 
+Insipred and based on [A-Frame Modal Component](https://github.com/IdeaSpaceVR/aframe-ui-modal-component).
+
 ### API
 
 | Property       | Description                                                                         | Default Value |
