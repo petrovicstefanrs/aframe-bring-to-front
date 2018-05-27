@@ -101,6 +101,17 @@ AFRAME.registerComponent('bring-to-front', {
 		}
 	},
 
+	init: function() {
+		this.sourceEl = document.querySelector(this.data.source);
+
+		this.yaxis = new THREE.Vector3(0, 1, 0);
+		this.zaxis = new THREE.Vector3(0, 0, 1);
+		this.pivot = new THREE.Object3D();
+
+		this.el.sceneEl.object3D.add(this.pivot);
+		this.pivot.add(this.el.object3D);
+	},
+
 	play: function() {
 		if (AFRAME.utils.device.checkHeadsetConnected()) {
 			document
@@ -128,31 +139,21 @@ AFRAME.registerComponent('bring-to-front', {
 				);
 			}
 		}
-
-		this.sourceEl = document.querySelector(this.data.source);
-
-		this.yaxis = new THREE.Vector3(0, 1, 0);
-		this.zaxis = new THREE.Vector3(0, 0, 1);
-		this.pivot = new THREE.Object3D();
-
-		this.el.object3D.position.set(
-			0,
-			this.sourceEl.object3D.getWorldPosition().y,
-			this.data.distance
-		);
-
-		this.el.sceneEl.object3D.add(this.pivot);
-		this.pivot.add(this.el.object3D);
 	},
 
 	eventHandler: function(evt) {
-		console.log(evt);
 		if (this.data.trigger === 'keydown' || this.data.trigger === 'keyup') {
 			var code = evt.keyCode ? evt.keyCode : evt.which;
 			if (code !== this.data.keyCode) {
 				return;
 			}
 		}
+
+		this.el.object3D.position.set(
+			0,
+			0,
+			this.data.distance
+		);
 
 		var direction = this.zaxis.clone();
 		direction.applyQuaternion(this.sourceEl.object3D.quaternion);
