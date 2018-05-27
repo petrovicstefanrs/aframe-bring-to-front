@@ -6,9 +6,11 @@
 A-Frame Bring To Front Component component For [A-Frame](https://aframe.io).
 This component serves as a wrapper around any other element and listens to an event to know when to put the wrapped element in front of the camera.
 
-IMPORTANT: For this component to work you must have a camera element explicitly declared somwhere inside your scene element.
+NOTE: If you want to position the element in relation to the source object, put position prop on the entity that implements this module not on the element itself. If you put position on the element itself the element will be positioned in relation to entity that implements this module.
 
-Insipred and based on [A-Frame Modal Component](https://github.com/IdeaSpaceVR/aframe-ui-modal-component).
+IMPORTANT: For this component to work without source prop you must have a camera element explicitly declared somwhere inside your scene element.
+
+Insipred by on [A-Frame Modal Component](https://github.com/IdeaSpaceVR/aframe-ui-modal-component).
 
 ### API
 

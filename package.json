@@ -1,6 +1,6 @@
 {
   "name": "aframe-bring-to-front-component",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A A-Frame Bring To Front Component component for A-Frame.",
   "main": "index.js",
   "unpkg": "dist/aframe-bring-to-front-component.min.js",
@@ -29,7 +29,7 @@
     "webvr",
     "bring-to-front"
   ],
-  "author": "Stefan Petrovic <dotperinchdesign@gmail.com",
+  "author": "Stefan Petrovic <dotperinchdesign@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/petrovicstefanrs/aframe-bring-to-front/issues"
