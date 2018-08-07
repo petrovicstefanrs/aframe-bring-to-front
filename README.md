@@ -3,6 +3,9 @@
 [![Version](http://img.shields.io/npm/v/aframe-bring-to-front-component.svg?style=flat-square)](https://npmjs.org/package/aframe-bring-to-front-component)
 [![License](http://img.shields.io/npm/l/aframe-bring-to-front-component.svg?style=flat-square)](https://npmjs.org/package/aframe-bring-to-front-component)
 
+You can check the example here: https://petrovicstefanrs.github.io/aframe-bring-to-front/
+Just press "H" to bring the box in front of camera.
+
 A-Frame Bring To Front Component component For [A-Frame](https://aframe.io).
 This component serves as a wrapper around any other element and listens to an event to know when to put the wrapped element in front of the camera.
 
